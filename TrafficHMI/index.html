@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="HMI" content="width=device-width, initial-scale=1">
+   <!-- <link rel="stylesheet" href="_style/font-awesome.min.css">-->
+    <link rel="stylesheet" href="_style/w3.css">
+    <link rel="stylesheet" href="_style/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Traffic Light HMI</title>
+    <style>
+
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+body{
+	margin: 0;
+	padding: 0;
+	background: #fff;
+
+	color: #fff;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.body{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image: url(./_img/traffic_blue.jpg);
+	background-size: cover;
+	-webkit-filter: blur(0px);
+	z-index: 0;
+}
+.body2{
+	position: absolute;
+        top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: auto;
+	height: auto;
+        filter: blur(5px);
+	background-image: url(./_img/traffic_green.jpg);
+	background-size: cover;
+
+	z-index: 0;
+}
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.grad{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+	z-index: 1;
+	opacity: 0.7;
+}
+
+.header{
+	position: absolute;
+	top: calc(50% - 35px);
+	left: calc(50% - 255px);
+	z-index: 2;
+}
+
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 35px;
+	font-weight: 200;
+}
+
+.header div span{
+	color: #5379fa !important;
+}
+
+.login{
+	position: absolute;
+	top: calc(50% - 75px);
+	left: calc(50% - 50px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.login input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.login input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.login input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.login input[type=button]:active{
+	opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=button]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+
+::-moz-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+        
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+
+
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; 
+        box-sizing: border-box;
+      }
+      .menu {
+        float:left;
+        width:20%;
+        text-align:center;
+      }
+      .menuitem {
+        background-color:#e5e5e5;
+        padding:8px;
+        margin-top:7px;
+      }
+      .main {
+        float:left;
+        width:60%;
+        padding:0 20px;
+      }
+      .right {
+        background-color:#e5e5e5;
+        float:left;
+        width:20%;
+        padding:15px;
+        margin-top:7px;
+        text-align:center;
+      }
+      
+      #hideme{
+    border:solid 1px #000;
+    background:#ccc;
+    padding:20px;
+    
+    
+    
+    
+}
+
+
+@-webkit-keyframes fadeout{
+    0%{opacity:1;visibility:visible;}
+    99%{opacity:0;}
+    100%{opacity:0;visibility: hidden;}
+}
+.fadeout {
+    -webkit-animation:fadeout 1s linear;
+    visibility:hidden;
+}
+@-webkit-keyframes fadein{
+    0%{opacity:0;visibility:visible;}
+    100%{opacity:1;}
+}
+.fadein {
+    -webkit-animation:fadein 1s linear;
+}
+      
+      .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+        }
+      .button1 {
+            background-color: yellowgreen; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+        .button1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        .button1.visible{
+            visibility: visible
+        }
+        .button1.hidden{
+            visibility: hidden
+        }
+        .button2 {
+            font-size: 12px;
+            padding: 0px 0px;
+        }
+      #grad1 {background: linear-gradient(green, black); /* Standard syntax (must be last) */
+              .button {
+    
+}
+      
+    </style>
+    
+</head>
+
+<div class="body" id="mainLogin" >
+    <div class="grad"></div>
+    <div class="header">
+      <div>HMI<span>LOGIN</span></div>
+    </div>
+    <br>
+    <div class="login">
+      <input type="text" placeholder="Enter Username or Default" id="uname" required><br>
+      <input type="password" placeholder="Enter Password or Default" id="psw" required><br>
+      <input type="text" placeholder="IP of SCADA (127.0.0.1)" id="scadaIP" required><br>
+      <p id="loginupdate">  </p>
+      <input type="button" value="Login" id="cmdButton" onClick="establish_connection()">
+
+    </div>
+</div>
+
+<div id="mainBody"  hidden>
+    <div class="body2"></div>
+    <div class="content">
+    
+<!-- Navbar -->
+<div class="w3-top" id="scriptcontainer">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-small">
+
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white" id="btnlogout" onClick="Logout()">Logout</a>
+  
+  </div>
+</div>
+
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-medium w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    </a>
+            <div id="commandDiv" >
+          <div class="menuitem" id="divNW">NW Street
+               <button class="w3-bar-item button" type="submit" value="0" onclick="cmdMaintenance(this)">Maintenance Mode</button>
+              <button class="w3-bar-item button" type="submit" value="0" onclick="cmdTestMode(this)">Test Mode</button>
+              <button class="w3-bar-item button" type="submit" value="0" onclick="cmdNormalOps(this)">Normal Mode</button>
+              <label id="lblNWStatus"> Reported mode: </label>
+          </div>
+            <div class="menuitem" id="divSW">SW Street
+               <button class="w3-bar-item button" type="submit" value="1" onclick="cmdMaintenance(this)">Maintenance Mode</button>
+              <button class="w3-bar-item button" type="submit" value="1" onclick="cmdTestMode(this)">Test Mode</button>
+              <button class="w3-bar-item button" type="submit" value="1" onclick="cmdNormalOps(this)">Normal Mode</button>
+              <label id="lblSWStatus"> Reported mode: </label>
+          </div>
+            <div class="menuitem" id="divNE">NE Street
+              <button class="w3-bar-item button" type="submit" value="2" onclick="cmdMaintenance(this)">Maintenance Mode</button>
+              <button class="w3-bar-item button" type="submit" value="2" onclick="cmdTestMode(this)">Test Mode</button>
+              <button class="w3-bar-item button" type="submit" value="2" onclick="cmdNormalOps(this)">Normal Mode</button>
+              <label id="lblNEStatus"> Reported mode: </label>
+          </div>
+            <div class="menuitem" id="divSE">SE Street
+              <button class="w3-bar-item button" type="submit" value="3" onclick="cmdMaintenance(this)">Maintenance Mode</button>
+              <button class="w3-bar-item button" type="submit" value="3" onclick="cmdTestMode(this)">Test Mode</button>
+              <button class="w3-bar-item button" type="submit" value="3" onclick="cmdNormalOps(this)">Normal Mode</button>
+              <label id="lblSEStatus"> Reported mode: </label>
+          </div>
+        </div>
+
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+
+
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+     
+      <canvas id="myCanvas" width="800" height="800" style="border:5px solid greenyellow; background: url('./_img/back.jpg')"></canvas>
+       </div>
+    <div class="w3-third w3-container">
+
+      <h5 class="w3-code" style="color:black">Events:</h5>
+      <p class="w3-border w3-padding-large w3-padding-32 w3-black" style="opacity:1.0" id="pLog"></p>
+    </div>
+  </div>
+
+<!-- END MAIN -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+    
+    
+    
+<script>
+   function load_js()
+   {
+      var scriptholder = document.getElementById('scriptcontainer');
+      var script= document.createElement('script');
+      script.type= 'text/javascript';
+      script.src= './_js/HMI.js?' + new Date().getTime();
+      scriptholder.appendChild(script);
+
+   }
+   load_js();
+   function establish_connection(){
+       uname = document.getElementById("uname").value;
+       pwd = document.getElementById("psw").value;
+       ip = document.getElementById("scadaIP").value;
+       cmdUseSocket(uname, pwd, ip);
+        
+   }
+</script>
+    </div>
+</div>
+</html>
