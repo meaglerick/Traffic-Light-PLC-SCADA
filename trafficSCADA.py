@@ -299,13 +299,13 @@ if __name__ == "__main__":
 	socks = []
 	plcs = []
 	
-	plcInt = plcInterrogator('10.0.0.10', 502, "NW Street")
+	plcInt = plcInterrogator('127.0.0.1', 502, "NW Street")
 	plcs.append(plcInt)
-	plcInt = plcInterrogator('10.0.0.20', 502, "SW Street")
+	plcInt = plcInterrogator('127.0.0.1', 503, "SW Street")
 	plcs.append(plcInt)
-	plcInt = plcInterrogator('10.0.0.30', 502, "NE Street")
+	plcInt = plcInterrogator('127.0.0.1', 504, "NE Street")
 	plcs.append(plcInt)
-	plcInt = plcInterrogator('10.0.0.40', 502, "SE Street")
+	plcInt = plcInterrogator('127.0.0.1', 505, "SE Street")
 	plcs.append(plcInt)
 	
 	#start the PLC interrogation threads

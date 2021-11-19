@@ -21,10 +21,10 @@
 # --------------------------------------------------------------------------- # 
 # import the various server implementations
 # --------------------------------------------------------------------------- # 
-from pymodbus.server.async import StartTcpServer
-from pymodbus.server.async import StartUdpServer
-from pymodbus.server.async import StartSerialServer
-from pymodbus.server.async import ModbusServerFactory
+from pymodbus.server.asynchronous  import StartTcpServer
+from pymodbus.server.asynchronous  import StartUdpServer
+from pymodbus.server.asynchronous  import StartSerialServer
+from pymodbus.server.asynchronous  import ModbusServerFactory
 
 from pymodbus.device import ModbusDeviceIdentification
 from pymodbus.datastore import ModbusSequentialDataBlock
@@ -255,30 +255,34 @@ class plcSlave():
 				else:
 					self.setHoldingRegisters(0,[3,3,3,3])
 				time.sleep(1)
-				
-
 
 def signal_handler(signal, frame):
-    print ('Interrupt command detected!')
+	print('interrupt')
+	print('hello world')
 	try:
 		reactor.stop()
 		sys.exit(0)
 	except Exception as e:
 		print(e)
-		print("trying to quit")
-		reactor.stop()
-		sys.exit(0)
+	# try:
+	# 	reactor.stop()
+	# 	sys.exit(0)
+	# except Exception as e:
+	# 	print(e)
+	# 	print("trying to quit")
+	# 	reactor.stop()
+	# 	sys.exit(0)
 
 if __name__ == "__main__":
 	signal.signal(signal.SIGINT, signal_handler)
 	try:
-		plc1 = plcSlave("10.0.0.10", 502, initialRegisters=[0,2,0,2,10,12,14], plcName="NW Street")
+		plc1 = plcSlave("127.0.0.1", 502, initialRegisters=[0,2,0,2,10,12,14], plcName="NW Street")
 		plc1.start()
-		plc2 = plcSlave("10.0.0.20", 502, initialRegisters=[0,2,0,2,10,12,14],plcName= "SW Street")
+		plc2 = plcSlave("127.0.0.1", 503, initialRegisters=[0,2,0,2,10,12,14],plcName= "SW Street")
 		plc2.start()
-		plc3 = plcSlave("10.0.0.30", 502, initialRegisters=[0,2,0,2,10,12,14], plcName="NE Street")
+		plc3 = plcSlave("127.0.0.1", 504, initialRegisters=[0,2,0,2,10,12,14], plcName="NE Street")
 		plc3.start()
-		plc4 = plcSlave("10.0.0.40", 502, initialRegisters=[0,2,0,2,2,4,6], plcName="SE Street")
+		plc4 = plcSlave("127.0.0.1", 505, initialRegisters=[0,2,0,2,2,4,6], plcName="SE Street")
 		plc4.start()
 		
 		reactor.run()
