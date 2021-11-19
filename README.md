@@ -1,5 +1,7 @@
 # Traffic-Light-PLC-SCADA
 
+dev 1
+
 This project was developed to simulate an industrial control system (ICS) traffic light Supervisory Control And Data Acquisition (SCADA) system. It utilizes trafficPLC.py to act as a programmable logic controller (PLC). For use, the machine operating the PLC should have 4 network interfaces, on the 10.0.0.10, 10.0.0.20, 10.0.0.30, and 10.0.0.40 addresses. If this is not suitable comment out the section at the bottom that initializes the PLC's.
 
 TrafficScada.py is the SCADA portion of the environment. This will interrogate up to 4 PLC's using the ModBus ICS protocol, utilizing the PyModBus package for python.
